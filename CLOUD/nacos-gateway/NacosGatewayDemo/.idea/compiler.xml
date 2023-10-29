@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="order1" />
+        <module name="stock1" />
+        <module name="gateway1" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="NacosGatewayDemo" options="-parameters" />
+      <module name="gateway1" options="-parameters" />
+      <module name="order1" options="-parameters" />
+      <module name="stock1" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,14 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /
+# 服务注册
+spring:
+  application:
+    name: stock-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        # 自定义服务发布到Nacos后的集群名称
+        namespace: e5c78c07-74ef-45ed-8389-b1ac2d1cd8c0

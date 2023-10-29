@@ -1,0 +1,27 @@
+server:
+  port: 91
+  context-path: /
+
+eureka:
+  client:
+    register-with-eureka: true # 是否注册到服务注册中心
+    fetch-registry: true # 需要从注册中心获取各个服务的hystrix信息，需设置为true
+    service-url:
+      defaultZone: http://eureka2001.etjava.com:2001/eureka/,
+                   http://eureka2002.etjava.com:2002/eureka/,
+                   http://eureka2003.etjava.com:2003/eureka/
+
+turbine:
+  app-config: microservice-student   # 指定要监控的应用名称 多个使用逗号隔开
+  cluster-name-expression: "'default'"  #表示集群的名字为default
+#  aggregator:
+#    cluster-config: default
+  combine-host-port: true
+  instanceUrlSuffix: /hystrix.stream
+
+
+
+
+spring:
+  application:
+    name: turbine

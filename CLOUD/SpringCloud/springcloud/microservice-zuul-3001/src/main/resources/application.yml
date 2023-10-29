@@ -1,0 +1,54 @@
+server:
+  port: 3001
+  context-path: /
+  address: localhost
+
+spring:
+  application:
+    name: microservice-zuul
+eureka:
+  instance:
+    instance-id: microservice-zuul:3001 #客户端实例名称
+    prefer-ip-address: true #显示IP
+  client:
+    service-url:
+      defaultZone: http://eureka2001.etjava.com:2001/eureka/,
+                    http://eureka2002.etjava.com:2002/eureka/,
+                    http://eureka2003.etjava.com:2003/eureka/ # 集群
+
+
+
+info:
+  app.name: microservice-zuul:3001
+  auther.name: Jerry
+  auther.phone: 999
+zuul:
+  routes:
+    search:
+      path: /microservice-student/** #映射路径
+      service-id: microservice-student #指定服务名称zuul
+  host:
+    max-total-connections: 6000
+    max-per-route-connections: 6000
+    semaphore:
+      max-semaphores: 200
+    socket-timeout-millis: 6000
+    connect-timeout-millis: 6000
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+  eureka:
+    enabled: false
+
+# 加上404 不加就找不到服务Load balancer does not have available server
+#microservice-student.listOfServers: localhost:1004
