@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.et.mapper.MiaoShaGoodsMapper">
+
+    <resultMap id="SeckillGoodsMap" type="MiaoShaGoods">
+
+        <association property="goods" column="goods_id" select="com.et.mapper.GoodsMapper.findById"></association>
+    </resultMap>
+    <select id="listAll" parameterType="Integer" resultMap="SeckillGoodsMap">
+        select * from t_goods_miaosha
+    </select>
+
+    <select id="findById" parameterType="Integer" resultMap="SeckillGoodsMap">
+        select * from t_goods_miaosha where id=#{id}
+    </select>
+    
+    <update id="reduceStock" parameterType="Integer" >
+        update t_goods_miaosha set stock=stock-1 where id=#{id} and stock>0
+    </update>
+</mapper>

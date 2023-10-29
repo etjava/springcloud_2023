@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="seckill-exec-8083" />
+        <module name="seckill-order2" />
+        <module name="seckill-gateway-3001" />
+        <module name="seckill-order-8082" />
+        <module name="seckill-common" />
+        <module name="seckill-goods-8081" />
+        <module name="seckill-user-81" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="seckill-common" options="-parameters" />
+      <module name="seckill-exec-8083" options="-parameters" />
+      <module name="seckill-gateway-3001" options="-parameters" />
+      <module name="seckill-goods-8081" options="-parameters" />
+      <module name="seckill-order-8082" options="-parameters" />
+      <module name="seckill-order2" options="-parameters" />
+      <module name="seckill-user-81" options="-parameters" />
+      <module name="springcloud-seckill-sys" options="-parameters" />
+    </option>
+  </component>
+</project>

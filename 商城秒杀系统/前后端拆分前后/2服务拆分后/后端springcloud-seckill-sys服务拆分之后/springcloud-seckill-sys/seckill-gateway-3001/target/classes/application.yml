@@ -1,0 +1,73 @@
+server:
+  port: 3001
+  servlet:
+      context-path: "/"
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_seckill?serverTimezone=Asia/Shanghai
+    username: root
+    password: Karen@1234
+  redis:  # redis配置
+    host: 192.168.199.106 # IP
+    port: 6379  # 端口
+    password:  # 密码
+    connect-timeout: 10s  # 连接超时时间
+    lettuce: # lettuce redis客户端配置
+      pool:  # 连接池配置
+        max-active: 8  # 连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-wait: 200s  # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        max-idle: 8 # 连接池中的最大空闲连接 默认 8
+        min-idle: 0 # 连接池中的最小空闲连接 默认 0
+  jackson:
+    time-zone: Asia/Shanghai
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+              allowCredentials: true
+              allowedHeaders: "*"
+              allowedOrigins: "*"
+              allowedMethods: "*"
+      routes:
+        - id: user_router
+          uri: lb://seckill-user
+          predicates:
+            - Path=/user/**
+
+        - id: goods_router
+          uri: lb://seckill-goods
+          predicates:
+            - Path=/goods/** , /image/**
+
+        - id: miaoShaGoods_router
+          uri: lb://seckill-goods
+          predicates:
+            - Path=/miaoShaGoods/**
+
+        - id: miaosha_router
+          uri: lb://seckill-exec
+          predicates:
+            - Path=/miaoSha/**, /verifyCode/**
+          filters:
+            - name: RequestRateLimiter  # 限流过滤器
+              args:
+                redis-rate-limiter.replenishRate: 1   # 令牌桶每秒填充速率
+                redis-rate-limiter.burstCapacity: 2   # 令牌桶总容量
+                redis-rate-limiter.requestedTokens: 1  # 一个请求需要消费的令牌数
+                key-resolver: "#{@pathKeyResolver}"
+
+        - id: order_router
+          uri: lb://seckill-order
+          predicates:
+            - Path=/order/**
+
+
+  application:
+    name: seckill-gateway

@@ -1,0 +1,38 @@
+server:
+  port: 80
+  servlet:
+    context-path: /
+
+spring:
+  rabbitmq:
+    host: 192.168.199.106
+    port: 5672
+    username: admin
+    password: admin
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_seckill?serverTimezone=Asia/Shanghai
+    username: root
+    password: Karen@1234
+  redis:
+    host: 192.168.199.106
+    port: 6379
+    password:
+    connect-timeout: 10s #连接超时时间
+    lettuce: # redis连接池
+      pool:
+        max-active: 8 # 最大连接数(-1表示不限制) 默认8
+        max-idle: 8 # 最大空闲连接数 默认8
+        max-wait: 200s # 连接等待时间(-1表示不限制)?默认-1
+        min-idle: 0 # 最小空闲连接数 默认0
+
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true  # userName  - >  user_name
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:/mapper/*.xml
+  type-aliases-package: com.et.entity
+

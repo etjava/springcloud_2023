@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.et.mapper.OrderMapper">
+
+    <resultMap id="OrderMap" type="Order">
+        <association property="miaoShaGoods" column="miaosha_goods_id" select="com.et.mapper.MiaoShaGoodsMapper.findById"></association>
+        <association property="user" column="user_id" select="com.et.mapper.UserMapper.findById"></association>
+    </resultMap>
+    
+    <select id="findById" parameterType="String" resultMap="OrderMap">
+        select * from t_order where id=#{id}
+    </select>
+    
+    <insert id="add" parameterType="Order">
+        insert  into t_order values(#{id},#{user.id},#{miaoShaGoods.id},now(),#{payDate},#{countNum},#{totalPrice},#{payMethod},#{status})
+    </insert>
+
+    <select id="finOrderWithUserIdAndGoodsId" parameterType="Map" resultType="Order">
+        select * from t_order where user_id=#{userId} and miaosha_goods_id=#{goodsId}
+    </select>
+</mapper>
