@@ -1,0 +1,28 @@
+server:
+  port: 81
+spring:
+  redis:
+    host: 192.168.199.106
+    port: 6379
+    password:
+    connect-timeout: 10s #连接超时时间
+    lettuce: #lettuce缓冲池客户端配置
+      pool: #配置连接池
+        max-active: 8 #最大连接数 如果为负数表示没有限制 默认8
+        max-wait: 200s # 连接池最大阻塞时间 使用负数表示没有显示 默认-1
+        max-idle: 8 # 连接池中最大空闲连接数 默认8
+        min-idle: 0 # 连接池中最小空闲连接数 默认0
+  cloud:
+    gateway:
+      routes:
+        - id: rateLimiter
+          uri: http://localhost:8080
+          predicates:
+            - Path=/product/**
+          filters:
+            - name: RequestRateLimiter # 限流过滤器
+              args:
+                redis-rate-limiter.replenishRate: 1 #令牌桶每秒填充速率
+                redis-rate-limiter.burstCapacity: 2 # 令牌桶总容量
+                redis-rate-limiter.requestedTokens: 1 # 一个请求需要消费的令牌数量
+                key-resolver: "#{@pathKeyResolver}" #

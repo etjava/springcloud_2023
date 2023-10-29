@@ -1,0 +1,19 @@
+server:
+  port: 80
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      routes: #定义路由规则 可以配置多个
+        - id: product-service #路由ID
+          uri: http://localhost:8080 #路由地址
+          predicates: #定义断言规则
+            - Path=/product/** , /api-gateway/** # Path断言
+          filters:
+            - AddRequestParameter=info2, blue # 前置过滤器 key是info2 值是blue
+            - RewritePath=/api-gateway(?<args>/?.*), $\{args}
+            - SetStatus=789 # 改变请求的响应状态 - 所有的请求都会改为该响应状态
+            - AddResponseHeader=X-Response111-Author, ET #返回的请求状态中添加头信息

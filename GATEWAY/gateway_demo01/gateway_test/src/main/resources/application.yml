@@ -1,0 +1,17 @@
+server:
+  port: 81
+
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      routes: #?????? ??????
+        - id: baidu
+          uri: https://www.baidu.com
+          predicates: #??????
+            - Path=/ # ??dog? ???baidu.com
+        - id: java
+          uri: https://oracle.com
+          predicates:
+            - Path=/java/** # ??java????oracle??

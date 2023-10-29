@@ -1,0 +1,31 @@
+server:
+  port: 80
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      routes: #定义路由规则 可以配置多个
+        - id: product-service #路由ID
+          uri: http://localhost:8080 #路由地址
+          predicates: #定义断言规则
+            #- Path=/product/** # Path断言
+            #- After=2023-09-29T06:06:06+08:00[Asia/Shanghai]
+            #- Before=2023-10-29T06:06:06+08:00[Asia/Shanghai]
+            #- Between=2023-09-29T06:06:06+08:00[Asia/Shanghai],2023-10-29T06:06:06+08:00[Asia/Shanghai]
+            #- Cookie=token, \d+
+            #- Header=X-Request-Id, \d+
+            #- Host=**.abc.org,**.def.io
+            #- Method=GET,POST
+            #- Path=/product/{args}
+            #- Query=apple
+            #- RemoteAddr=192.168.147.78/24
+            - Weight=group1,8
+        - id: order-service
+          uri: http://localhost:8081
+          predicates:
+            - Weight=group1,2
+          filters:
+            - AddRequestParameter=info2, blue # 前置过滤器 key是info2 值是hello
