@@ -1,0 +1,33 @@
+user:
+  name: tom
+  age: 12
+spring:
+  application:
+    name: nacos_conf #配置项目名称
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848 #nacos访问路径
+        group: DEFAULT_GROUP #组的名称
+        name: nacos_config_02 #要读取数据集的ID
+        namespace:  # 单个指定命名空间ID 命名空间为空 表示默认的 public空间
+        # 配置多数据集
+#        extension-configs[0]:
+#          data-id: mysql_common.properties
+#          group: DEFAULT_GROUP
+#          refresh: true
+#          file-extension: properties  # 指定yaml格式的文件配置
+#        extension-configs[1]:
+#          data-id: mysql_common.properties
+#          group: DEFAULT_GROUP
+#          refresh: true
+#        extension-configs[2]:
+#          data-id: crm.properties
+#          group: CRM_GROUP
+#          refresh: true
+#        extension-configs[3]:
+#          data-id: oa.properties
+#          group: OA_GROUP
+#          refresh: true
+#        profiles: # 多数据集时指定命名空间
+#          active: DEV

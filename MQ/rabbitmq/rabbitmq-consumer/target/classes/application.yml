@@ -1,0 +1,13 @@
+server:
+  port: 8082
+
+spring:
+  rabbitmq:
+    host: 192.168.199.106
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: / #
+    listener:
+      simple:
+        acknowledge: auto #manual # 开启消息确认为manual模式（手动向MQ发送确认消息已收到）

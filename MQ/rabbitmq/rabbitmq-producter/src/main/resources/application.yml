@@ -1,0 +1,11 @@
+server:
+  port: 8081
+spring:
+  rabbitmq:
+    host: 192.168.199.106
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: /
+    publisher-confirm-type: correlated # 开启确认模式
+    publisher-returns: true # 开启回退模式
